@@ -1,0 +1,17 @@
+
+
+1) charity - structure which would include all the details such as name place bank account details about their charity. 
+	     functions :
+			 1. to accept the amount given by any person or organisation.
+			 2. to enter the details about their charity, so that when an organisation or person comes would be able to see what they do their charity money.
+			 3. to generate an address which would be made public soo that any organisation can send money to that charity.
+
+
+2) person/ oragnisation - structure which would include all the details about their organisation such as name place bank account adhar verification or any other valid information.
+	     functions : 
+			 1. to send the amount to the charity according to their address.
+
+key functions :
+		1) create an account for charity/ person / organisation which includes all their details.
+		2) keep track of all the transations for 10 mins and then create a merkle root and finally mine a new block.
+		3) the history of transactions should be visible to both the person and the charity.
