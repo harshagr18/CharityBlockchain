@@ -16,8 +16,9 @@ struct  charity_structure {
    string  name_of_charity;
    string bankAccount;
    string bankName;
-   bytes32 addres;
+   bytes32 hash;
    uint amount_balance;
+   address payable addres;
 
 }
 
@@ -28,8 +29,9 @@ struct personOrOrganisation_structure {
     string name_of_organisation;
     string bankAccount;
     string bankName;
-    bytes32 addres;
+    bytes32 hash;
     uint amount_balance;
+   address payable addres;
 
 }
 
@@ -85,14 +87,15 @@ function generate_address_organisation(string memory name, string memory bankacc
 
 }
 
-function add_charity(string memory name, string memory bankacc , string memory bankname , uint amount_balance) public returns(string memory status){
+function add_charity(string memory name, string memory bankacc , string memory bankname , address payable address_) public returns(string memory status){
 
     bytes32 hash = generate_address_charity(name,bankacc,bankname);
-    cs[index_charity].addres = hash;
+    cs[index_charity].hash = hash;
     cs[index_charity].name_of_charity = name;
     cs[index_charity].bankAccount = bankacc;
     cs[index_charity].bankName = bankname;
-    cs[index_charity].amount_balance = amount_balance;
+    cs[index_charity].addres = address_;
+    cs[index_charity].amount_balance = address_.balance;
 
     /*
     hash_byt = hash;
@@ -107,14 +110,15 @@ function add_charity(string memory name, string memory bankacc , string memory b
 
 }
 
-function add_organisation(string memory name, string memory bankacc , string memory bankname , uint amount_balance) public returns(string memory status){
+function add_organisation(string memory name, string memory bankacc , string memory bankname , address payable address_) public returns(string memory status){
 
     bytes32 hash = generate_address_organisation(name,bankacc,bankname);
-    ps[index_organisation].addres = hash;
+    ps[index_organisation].hash = hash;
     ps[index_organisation].name_of_organisation = name;
     ps[index_organisation].bankAccount = bankacc;
     ps[index_organisation].bankName = bankname;
-    ps[index_organisation].amount_balance = amount_balance;
+    ps[index_organisation].addres = address_;
+    ps[index_organisation].amount_balance = address_.balance;
     /*
     hash_byt = hash;
     bankName = bankname;
@@ -128,10 +132,10 @@ function add_organisation(string memory name, string memory bankacc , string mem
 
 }
 
-function transact_organisation_to_charity(bytes32  address_of_charity, bytes32 address_of_oranisation , uint amount) public payable returns(string memory status){
+function transact_organisation_to_charity(address payable address_of_charity, address payable address_of_oranisation ) public payable returns(string memory status){
 
-    bytes32 _address_of_charity ;
-    bytes32 _address_of_oranisation;
+    address _address_of_charity ;
+    address _address_of_oranisation;
     uint index_organisation_ = 0;
     uint index_charity_ = 0;
     uint flag1 = 0;
@@ -152,9 +156,12 @@ function transact_organisation_to_charity(bytes32  address_of_charity, bytes32 a
         }
     }
 
+
+
     if(flag1 == 1 && flag2 ==1){
-        cs[index_charity_].amount_balance += amount;
-        ps[index_organisation_].amount_balance -= amount;
+        cs[index_charity_].amount_balance += msg.value;
+        ps[index_organisation_].amount_balance -= msg.value;
+        address_of_charity.transfer(msg.value);
         return("transaction has been done succesfully!!!");
     }
 
