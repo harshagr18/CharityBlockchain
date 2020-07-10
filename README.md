@@ -1,10 +1,10 @@
 # Charity Blockchain Project
 
-## Dependencies
+### Dependencies
 * Web3
 * Metamask
 
-## License
+### License
 
 	Copyright (C) 2020 Harsh Sanjay Agrawal
 
