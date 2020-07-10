@@ -1,5 +1,8 @@
 # Charity Blockchain Project
 
+## Dependencies
+* Web3
+* Metamask
 
 ## License
 
