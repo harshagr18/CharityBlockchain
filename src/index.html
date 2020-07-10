@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+	<head>
+		<meta charset = "utf-8">
+		<meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+		<meta name = "viewport" content = "width=device-width, initial-scale=1">
+
+		<title>Blockchain charity | SDP project</title>
+
+
+		<link href = "vendor/bootstrap/dist/css/bootstrap.min.css" rel = "stylesheet">
+
+
+		<style>
+
+		*{
+			overflow:auto;
+		}
+
+
+			main {
+				margin-top: 60px;
+			}
+
+
+
+			form {
+				width: 350px;
+				margin-bottom : 10px;
+			}
+
+			ul {
+				margin-bottom: 0px;
+			}
+
+
+
+
+
+		</style>
+	</head>
+
+	<body>
+
+		<nav class = "navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+		<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="https://metamask.io/" target="_blank">Blockchain Charity | SDP</a>
+		<ul class = "navbar-nav px-3">
+			<li class = "nav-item text-npwrap d-none d-sm-none d-sm-block">
+				<small><a class = "nav-link" href = "#"><soan id = "account"></span></a></small>
+			</li>
+		</ul>
+		</nav>
+
+
+		<div class = "container-fluid">
+			<div class = "row">
+				<main role = "main" class = "col-lg-12 d-flex justify-content-center">
+					<div id = "loader" >
+					<!--	<p class = "text=center">Loading...</p>  -->
+					</div>
+					<div id = "content" >
+							<p >Enter the charity details...</p>
+					  	<form onSubmit = "App.createCharity();">
+								<br>
+						<input id = "charity_name" type = "text" class = "form-control" placeholder = "Add charity name..." required>
+						<br>
+						<input id = "charity_desciption" type = "text" class = "form-control" placeholder = "Add charity description..." required>
+						<br>
+						<input id = "charity_Account" type = "text" class = "form-control" placeholder = "Add charity bankAccount..." required>
+						<br>
+						<input id = "charity_bankName" type = "text" class = "form-control" placeholder = "Add charity bankName..." required>
+						<input type="submit">
+						</form>
+						<br><br><br>
+						<div id = "logId1"></div>
+						<form id = 'name11'></form>
+						<div class="taskTemplate" >
+                <label>
+                  <span class="content1">the name goes here: </span><br>
+									<span class="content2">the des goes here: </span><br>
+									<span class="content3">the bank acc goes here: </span><br>
+									<span class="content4">the bank name goes here: </span><br>
+									<span class="content5">the id: </span><br>
+									<span class="content6">the hash: </span><br>
+									<span class="content15">the previous hash: </span><br>
+									<span class="content17">address: </span><br>
+									<span class="content18">balance: </span><br>
+                </label>
+            </div>
+					<br>
+					<br>
+					<br>
+					<br>
+					    <p>Enter the organisation details...</p>
+		          <form onSubmit = "App.createOrganisation();">
+		            <br>
+		        <input id = "organisation_name" type = "text" class = "form-control" placeholder = "Add organisation name..." required>
+		        <br>
+		        <input id = "organisation_account" type = "text" class = "form-control" placeholder = "Add organisation bank account..." required>
+		        <br>
+		        <input id = "organisation_bankname" type = "text" class = "form-control" placeholder = "Add organisation bank name..." required>
+		        <br>
+		        <input type="submit">
+		        </form>
+		        <br><br><br>
+		        <div class="organisation_for_html" >
+		            <label>
+		              <span class="content9">the name of organisation goes here: </span><br>
+		              <span class="content10">the bank acc goes here: </span><br>
+		              <span class="content11">the bank name goes here: </span><br>
+		              <span class="content12">the id: </span><br>
+		              <span class="content13">the hash: </span><br>
+									<span class="content14">the previous hash: </span><br>
+									<span class="content16">the address: </span><br>
+									<span class="content19">the balance: </span><br>
+		            </label>
+		        </div>
+
+
+						<br><br><br><br>
+
+						<p>Enter the transaction details...</p>
+						<form onSubmit = "App.createTransaction();">
+						  <br>
+						<input id = "add_of_charity" type = "text" class = "form-control" placeholder = "Address of charity..." required>
+						<br>
+						<input id = "add_of_org" type = "text" class = "form-control" placeholder = "Address of organisation ..." required>
+						<br>
+						<input id = "amount" type = "text" class = "form-control" placeholder = "Amount to be transafered..." required>
+						<br>
+						<input type="submit">
+						</form>
+						<br><br><br>
+
+						<div class = "transaction">
+							<label>
+								<span class="content20">the transaction hash : </span><br>
+								<span class="content21">the charity address : </span><br>
+								<span class= "content22">the organisataion address : </span><br>
+								<span class= "content23">the amount in transaction : </span><br>
+								<span class = "content24">the id : </span><br>
+							</label>
+						</div>
+
+
+
+				</main>
+			<div>
+		</div>
+
+		<br>
+		<br>
+		<br><br>
+
+
+
+
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    		<!-- Include all compiled plugins (below), or include individual files as needed -->
+    		<script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    		<script src="vendor/truffle-contract/dist/truffle-contract.js"></script>
+    		<script src="new_app.js"></script>
+
+
+
+
+
+
+
+	</body>
+
+
+</html>
