@@ -1,0 +1,78 @@
+[33mcommit 8362d207915947aa5455159575bea09a3ccf3d32[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31mheroku/master[m[33m)[m
+Author: harshagr18 <harsh.agrawal17@siesgst.ac.in>
+Date:   Sun Jul 12 19:53:02 2020 +0530
+
+    Adding procfile and process port
+
+[33mcommit 35420855fc1bb2b70496cef2fa20af4da7b94842[m
+Author: Anandteertha Rao <anandteertha.ramesh18@siesgst.ac.in>
+Date:   Sun Jul 12 16:04:47 2020 +0530
+
+    blockchain added
+
+[33mcommit c51df4881a4454da24479a9b6704666d63905483[m
+Author: harshagr18 <harsh.agrawal17@siesgst.ac.in>
+Date:   Fri Jul 10 20:47:44 2020 +0530
+
+    Adding Bootstrap support
+
+[33mcommit 40156f45f1b0b62cf548c490fffdccfb672cd130[m
+Author: harshagr18 <harsh.agrawal17@siesgst.ac.in>
+Date:   Fri Jul 10 20:33:58 2020 +0530
+
+    Minor Readme changes
+
+[33mcommit 290c4299317cd2133f2c314d50a618633be85d70[m
+Author: harshagr18 <harsh.agrawal17@siesgst.ac.in>
+Date:   Fri Jul 10 20:33:05 2020 +0530
+
+    Added dependencies to readme
+
+[33mcommit b51973f4e5bbcbe9d20ec3fb67196f4eef677d39[m
+Author: Anandteertha Rao <anandteertha.ramesh18@siesgst.ac.in>
+Date:   Fri Jul 10 20:30:52 2020 +0530
+
+    blockchain for charity using truffle
+
+[33mcommit 6c38bebe9ea6064085590ba5ea23f3c0764b3497[m
+Merge: 87bd678 937ce0c
+Author: Harsh Agrawal <harsh.agrawal17@siesgst.ac.in>
+Date:   Sun Jul 5 21:48:26 2020 +0530
+
+    Merge branch 'master' of https://github.com/harshagrawal1802/CharityBlockchain
+
+[33mcommit 937ce0cd99629ecffe65d5d064c8b33c834f8e88[m
+Author: Anandteertha Rao <anandteertha.ramesh18@siesgst.ac.in>
+Date:   Sun Jul 5 21:13:55 2020 +0530
+
+    transaction using wallet done
+
+[33mcommit 87bd678be190a17a0b239cdd9227fd6d15c4cadc[m
+Author: Harsh Agrawal <harsh.agrawal17@siesgst.ac.in>
+Date:   Sun Jul 5 15:59:09 2020 +0530
+
+    License
+
+[33mcommit d18df10090950d2a75a11b91ee58b0f7d0fa32e7[m
+Author: Anandteertha Rao <anandteertha.ramesh18@siesgst.ac.in>
+Date:   Sun Jul 5 11:06:16 2020 +0530
+
+    transaction added
+
+[33mcommit 99b20e49dde1118f640826ae8b8eccf253c6b090[m
+Author: Anandteertha Rao <anandteertha.ramesh18@siesgst.ac.in>
+Date:   Sun Jul 5 10:22:39 2020 +0530
+
+    changes in project_charity.sol
+
+[33mcommit ab2882eb9bac5ff15ecf8b5f18c78f1eb32024a7[m
+Author: Anandteertha Rao <anandteertha.ramesh18@siesgst.ac.in>
+Date:   Sat Jul 4 11:39:55 2020 +0530
+
+    outline and a new sol file added check it out!
+
+[33mcommit 9a90662e9a9a279161892c45d8b105fc45c47a21[m
+Author: Harsh Agrawal <harsh.agrawal17@siesgst.ac.in>
+Date:   Mon Jun 29 22:01:26 2020 +0530
+
+    First Commit
