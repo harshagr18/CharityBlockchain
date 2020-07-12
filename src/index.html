@@ -9,8 +9,9 @@
 		<title>Blockchain charity | SDP project</title>
 
 
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
 		<style>
 
 		*{
@@ -59,6 +60,12 @@
 					<!--	<p class = "text=center">Loading...</p>  -->
 					</div>
 					<div id = "content" >
+						<br>
+						<marquee href="https://metamask.io/">please register in metamask using the link https://metamask.io/ and get some ether coins before using this DAPP</marquee>
+						<br>
+						<marquee>click the navigation bar to directly go to the MetaMask site</marquee>
+						<br>
+						<br>
 							<p >Enter the charity details...</p>
 					  	<form onSubmit = "App.createCharity();">
 								<br>
@@ -134,11 +141,27 @@
 
 						<div class = "transaction">
 							<label>
-								<span class="content20">the transaction hash : </span><br>
+								<span class="content20"></span><br>
 								<span class="content21">the charity address : </span><br>
 								<span class= "content22">the organisataion address : </span><br>
 								<span class= "content23">the amount in transaction : </span><br>
 								<span class = "content24">the id : </span><br>
+							</label>
+						</div>
+
+						<br><br><br><br>
+						<p>the blockchain details....</p>
+						<form onSubmit = "App.blockchain_function();">
+						  <br>
+						<!--<input id = "mine" type = "text" class = "form-control" placeholder = "blockchain mine..." required> -->
+						<span>TO MINE A BLOCK CLICK : <input type="submit" name="mine"></span>
+						<br><br>
+						<div class = "blockchain">
+							<label>
+								<span class="content25">the transaction merkle root : </span><br>
+								<span class="content26">the block number : </span><br>
+								<span class= "content27">the hash : </span><br>
+								<span class= "content28">the previous hash : </span><br>
 							</label>
 						</div>
 

@@ -38,6 +38,10 @@ contract charity {
       createCharity("anand_charity", "welcome to anand's charity, this is a default charity as I created this web page","bankacc","bankname","0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c","0000");
 
       createOrganisation("anand_organisation","bank account","bank name","0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c","0000");
+
+      createTransaction("0x9E4Fe77bbA33b9a8597e65F88AC40D85b45D2D5E","0x0863b46e51b958E9eFf366CcDc1E8f1e50915c85","1");
+
+      blockchain_function();
   }
 
   mapping(uint => charity_structre) public charitys;
@@ -51,6 +55,7 @@ contract charity {
     string address_of_organisation;
     string amount_sent;
     uint id;
+    bytes32 transaction_hash;
 
   }
 
@@ -59,17 +64,29 @@ contract charity {
   mapping(uint => transactions) public transaction_dict;
 
 
+  uint public blockchain_count = 0;
 
+  struct blockchain_structure {
+
+      uint nonce;
+      bytes data;
+      bytes32 transaction_hash_add;
+      uint blockNumber;
+      bytes32 hash;
+      bytes32 previous_hash;
+  }
+
+  mapping(uint => blockchain_structure) public Blockchain;
+
+  bytes32 previousHash;
 
   function createCharity(string memory _name, string memory _description, string memory _bankacc, string memory _bankname, string memory _address, string memory _ether_coins) public returns(uint){
 
       charity_count++;
-      //uint newEther_coins  =  uint(_ether_coins);
       bytes memory name_byte = bytes(_name);
       bytes memory description_byte = bytes(_description);
       bytes memory bankacc_byte = bytes(_bankacc);
       bytes memory bankname_byte = bytes(_bankname);
-      //string memory newStr = string(_address);
       bytes memory address_byte = bytes(_address);
       string memory lengthabc = new string(name_byte.length + description_byte.length + bankacc_byte.length + bankname_byte.length + address_byte.length);
       bytes memory hash = bytes(lengthabc);
@@ -99,8 +116,6 @@ contract charity {
 
 
       bytes32 hash_address = keccak256(hash);
-      //charitys[charity_count] = charity_structre(_name,_description,_bankacc,_bankname,charity_count,hash_address,_address);
-
       charitys[charity_count].name = _name;
       charitys[charity_count].description = _description;
       charitys[charity_count].bankAccount = _bankacc;
@@ -157,13 +172,7 @@ contract charity {
       k++;
 
     }
-
-
-
     bytes32 hash_address = keccak256(hash);
-
-    //org[org_count] = personOrOrganisation_structure(_name,_bankacc,_bankname,org_count,hash_address,_address);
-
 
     org[org_count].name = _name;
     org[org_count].bankAccount = _bankacc;
@@ -172,83 +181,215 @@ contract charity {
     org[org_count].hash = hash_address;
     org[org_count].address_of_organisation = _address;
     org[org_count].ether_coins = _ether_coins;
-
-    //emit organisationCreated(_name,_bankacc,_bankname,org_count,hash_address,_address);
-
     return org_count;
 
 
   }
 
-
-/*
-  function parseAddr(string memory _a) public returns (address _parsedAddress) {
-    bytes memory tmp = bytes(_a);
-    uint160 iaddr = 0;
-    uint160 b1;
-    uint160 b2;
-    for (uint i = 2; i < 2 + 2 * 20; i += 2) {
-        iaddr *= 256;
-        b1 = uint160(uint8(tmp[i]));
-        b2 = uint160(uint8(tmp[i + 1]));
-        if ((b1 >= 97) && (b1 <= 102)) {
-            b1 -= 87;
-        } else if ((b1 >= 65) && (b1 <= 70)) {
-            b1 -= 55;
-        } else if ((b1 >= 48) && (b1 <= 57)) {
-            b1 -= 48;
-        }
-        if ((b2 >= 97) && (b2 <= 102)) {
-            b2 -= 87;
-        } else if ((b2 >= 65) && (b2 <= 70)) {
-            b2 -= 55;
-        } else if ((b2 >= 48) && (b2 <= 57)) {
-            b2 -= 48;
-        }
-        iaddr += (b1 * 16 + b2);
-    }
-    return address(iaddr);
-}
-*/
-
-
-
-
 function createTransaction(string memory add_of_charity,string memory add_of_org,string memory amount) public {
 
     transaction_count++;
+
+
+
+    bytes memory _address_of_charity = bytes(add_of_charity);
+    bytes memory _address_of_organisation = bytes(add_of_org);
+    bytes memory _amount = bytes(amount);
+
+    string memory length_abc = new string(_address_of_charity.length + _address_of_organisation.length + _amount.length);
+    bytes memory hash = bytes(length_abc);
+
+    uint k = 0;
+    for(uint i = 0; i < _address_of_charity.length; i++) {
+
+      hash[k++] = _address_of_charity[i];
+
+    }
+
+    for(uint i = 0; i < _address_of_organisation.length; i++) {
+
+      hash[k++] = _address_of_organisation[i];
+
+    }
+
+    for(uint i = 0; i < _amount.length; i++) {
+
+      hash[k++] = _amount[i];
+
+    }
+
+    bytes32 hash_address = keccak256(hash);
     transaction_dict[transaction_count].address_of_charity = add_of_charity;
     transaction_dict[transaction_count].address_of_organisation = add_of_org;
     transaction_dict[transaction_count].amount_sent = amount;
     transaction_dict[transaction_count].id = transaction_count;
+    transaction_dict[transaction_count].transaction_hash = hash_address;
+
+
 
 }
-
-
-}
-
 /*
-event charityCreated(
-
-  string name,
-  string description,
-  string bankacc,
-  string bankname,
-  uint id,
-  bytes32 hash,
-  address address_of_charity
-
-);
-
-
-event organisationCreated(
-
-
-  string name,
-  string bankacc,
-  string bankname,
-  uint id,
-  bytes32 hash,
-  string address_of_organisation
-);
+function substring(string str, uint startIndex, uint endIndex) public returns (string) {
+    bytes memory strBytes = bytes(str);
+    bytes memory result = new bytes(endIndex-startIndex);
+    for(uint i = startIndex; i < endIndex; i++) {
+        result[i-startIndex] = strBytes[i];
+    }
+    return string(result);
+}
 */
+function blockchain_function() public {
+
+
+
+    blockchain_count++;
+    uint len = 0;
+    for(uint i = 1;i<=charity_count;i++){
+        bytes memory name_charity = bytes(charitys[i].name);
+        bytes memory description = bytes(charitys[i].description);
+        bytes memory bankacc = bytes(charitys[i].bankAccount);
+        bytes memory bankname = bytes(charitys[i].bankName);
+        bytes memory add_of_charity_byte = bytes(charitys[i].address_of_charity);
+        bytes memory amount_byte = bytes(charitys[i].ether_coins);
+        len += name_charity.length + description.length + bankacc.length + bankname.length + add_of_charity_byte.length + amount_byte.length;
+    }
+    for(uint i =1;i<=org_count;i++){
+        bytes memory name_org = bytes(org[i].name);
+        bytes memory bankacc_org = bytes(org[i].bankAccount);
+        bytes memory bankname_org = bytes(org[i].bankName);
+        bytes memory address_of_organisation_byte = bytes(org[i].address_of_organisation);
+        bytes memory ether_coins_byte = bytes(org[i].ether_coins);
+        len += name_org.length + bankacc_org.length + bankname_org.length + address_of_organisation_byte.length + ether_coins_byte.length;
+    }
+    string memory lengthabcd = new string(len);
+
+    uint nonceValue = 0;
+    bytes memory dataString = bytes(lengthabcd) ;
+    bytes32 hash_addressNew;
+
+    uint j = 0;
+
+    for(uint i = 1;i <= charity_count; i++){
+      bytes memory name_charity = bytes(charitys[i].name);
+      for(uint m=0;m<name_charity.length;m++){
+        dataString[j++] = name_charity[m];
+      }
+
+      bytes memory description = bytes(charitys[i].description);
+      for(uint m=0;m<description.length;m++){
+        dataString[j++] = description[m];
+      }
+
+      bytes memory bankacc = bytes(charitys[i].bankAccount);
+      for(uint m=0;m<bankacc.length;m++){
+        dataString[j++] = bankacc[m];
+      }
+
+      bytes memory bankname = bytes(charitys[i].bankName);
+      for(uint m=0;m<bankname.length;m++){
+        dataString[j++] = bankname[m];
+      }
+
+      bytes memory add_of_charity_byte = bytes(charitys[i].address_of_charity);
+      for(uint m=0;m<add_of_charity_byte.length;m++){
+        dataString[j++] = add_of_charity_byte[m];
+      }
+
+
+      bytes memory amount_byte = bytes(charitys[i].ether_coins);
+      for(uint m=0;m<amount_byte.length;m++){
+        dataString[j++] = amount_byte[m];
+      }
+      }
+
+    for(uint i = 1;i <= org_count; i++){
+
+
+      bytes memory name_org = bytes(org[i].name);
+      for(uint m=0;m<name_org.length;m++){
+        dataString[j++] = name_org[m];
+      }
+
+      bytes memory bankacc_org = bytes(org[i].bankAccount);
+      for(uint m=0;m<bankacc_org.length;m++){
+        dataString[j++] = bankacc_org[m];
+      }
+
+      bytes memory bankname_org = bytes(org[i].bankName);
+      for(uint m=0;m<bankname_org.length;m++){
+        dataString[j++] = bankname_org[m];
+      }
+
+      bytes memory address_of_organisation_byte = bytes(org[i].address_of_organisation);
+      for(uint m=0;m<address_of_organisation_byte.length;m++){
+        dataString[j++] = address_of_organisation_byte[m];
+      }
+
+      bytes memory ether_coins_byte = bytes(org[i].ether_coins);
+      for(uint m=0;m<ether_coins_byte.length;m++){
+        dataString[j++] = ether_coins_byte[m];
+      }
+
+    }
+uint another_len = 0;
+bytes memory temp;
+bytes memory temp2;
+    for(uint i = 1;i<=transaction_count;i++){
+      if(i==transaction_count){
+          temp = abi.encode(transaction_dict[i].transaction_hash);
+          another_len += temp.length;
+      }
+      else {
+          uint z = i+1;
+          temp2 = abi.encode(transaction_dict[i].transaction_hash,transaction_dict[z].transaction_hash);
+          another_len += temp2.length;
+      }
+    }
+
+    string memory something = new string(another_len);
+
+    bytes memory hash_total = bytes(something);
+    uint l = 0;
+    for(uint i = 1; i<=transaction_count;i++) {
+
+       if(i==transaction_count){
+          temp = abi.encode(transaction_dict[i].transaction_hash);
+          for(uint m=0;m<temp.length;m++){
+            hash_total[l++] = temp[m];
+          }
+       }
+       else {
+       uint g = i+1;
+        temp2 = abi.encode(transaction_dict[i].transaction_hash,transaction_dict[g].transaction_hash);
+        for(uint m=0;m<temp2.length;m++){
+          hash_total[l++] = temp2[m];
+        }
+        i++;
+       }
+
+    }
+
+
+    bytes32 transaction_hash_address = keccak256(hash_total);
+
+//for hash calculation....
+
+  string memory lengthabc = new string(dataString.length);
+  bytes memory hashNew = bytes(lengthabc);
+  uint k =0;
+  for(uint i = 0;i<dataString.length;i++){
+    hashNew[k++] = dataString[i];
+  }
+  hash_addressNew = keccak256(hashNew);
+
+
+    Blockchain[blockchain_count].blockNumber = blockchain_count;
+    Blockchain[blockchain_count].data = dataString;
+    Blockchain[blockchain_count].hash = hash_addressNew;
+    Blockchain[blockchain_count].previous_hash = previousHash;
+    Blockchain[blockchain_count].nonce = nonceValue;
+    Blockchain[blockchain_count].transaction_hash_add = transaction_hash_address;
+    previousHash = hash_addressNew;
+    }
+
+}

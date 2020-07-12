@@ -2,6 +2,7 @@ App = {
 
   loading: false,
   contracts: {},
+  value: "",
 
   load: async() => {
 
@@ -63,6 +64,9 @@ App = {
   });
   }
   });
+
+
+
 
   },
 
@@ -172,53 +176,42 @@ App = {
 
     }
 
-    for(var i = 1;i <= transaction_count;i++) {
 
 
-        const transactions = await App.charity.transaction_dict(i)
+        const transactions = await App.charity.transaction_dict(transaction_count)
         const charity_address_transaction = transactions[0]
         const organisation_address_transaction = transactions[1]
         const amount_123 = transactions[2]
         const id_transaction = transactions[3]
+        const transaction_hash1 = transactions[4]
         const $transaction = $('.transaction')
-        var txn_hash = "0000"
-
-
-              var txnObject = {
-                "from":organisation_address_transaction,
-                "to": charity_address_transaction,
-                "value": amount_123
-              }
-
-              web3.eth.sendTransaction(txnObject, function(error, result){
-                 if(error){
-                   console.log( "Transaction error" ,error);
-                   txn_hash = error;
-                 }
-                 else{
-                   txn_hash = result; //Get transaction hash
-                   $transaction.find('.content20').html("hash : "+ result)
-                 }
-              });
-
-
-
-
-        //$transaction.find('.content20').html("hash : "+ txn_hash)
+        var hash ;
+        window.alert("transaction hash : "+$transaction.find('.content20').val());
+        $transaction.find('.content20').html("transaction hash : "+transaction_hash1)
         $transaction.find('.content21').html("charity address : "+charity_address_transaction)
         $transaction.find('.content22').html("organisation address : "+organisation_address_transaction)
         $transaction.find('.content23').html("amount im transaction : "+amount_123)
         $transaction.find('.content24').html("the id : "+id_transaction)
 
-    }
+        const $blockchain = $('.blockchain');
+        //var bk = $('#mine').val()
+        const blockchain_count = await App.charity.blockchain_count();
+        const blockchain_structure = await App.charity.Blockchain(blockchain_count);
 
-
+        const transaction_merkle_root = blockchain_structure[2];
+        const blknum = blockchain_structure[3];
+        const theHash = blockchain_structure[4];
+        const theprevHash = blockchain_structure[5];
+        var bk = $('#mine').val()
+        $blockchain.find('.content25').html("the transaction merkle root : "+transaction_merkle_root)
+        $blockchain.find('.content26').html("the block number : "+blknum)
+        $blockchain.find('.content27').html("the hash : "+theHash)
+        $blockchain.find('.content28').html("the previous hash : "+theprevHash)
 
 
   },
 
   createCharity: async () => {
-		//App.setLoading(true)
 		var charity_name = $('#charity_name').val()
 		var description = $('#charity_desciption').val()
     var bankAccount = $('#charity_Account').val()
@@ -226,12 +219,7 @@ App = {
     var address = App.account
     var balance = App.balance
     var _str = balance + " ETH"
-
-
-
-    //var _str =   + "ETH"
 		await App.charity.createCharity(charity_name,description,bankAccount,bankName,address,_str)
-		//window.alert(charity_count)
 		window.location.reload()
 	},
 
@@ -241,6 +229,24 @@ App = {
     var address_of_charity = $('#add_of_charity').val()
     var address_of_organisation = $('#add_of_org').val()
     var amountToSend = $('#amount').val()
+    const $transaction = $('.transaction')
+
+    web3.eth.sendTransaction({
+      "from":address_of_organisation,
+      "to": address_of_charity,
+      "value": amountToSend
+    },function find_hash(error, result){
+       if(error){
+         console.log( "Transaction error" ,error);
+       }
+       else{
+         console.log(result)
+         window.alert("transaction hash : "+result);
+         }
+         return result;
+    });
+
+
     await App.charity.createTransaction(address_of_charity,address_of_organisation,amountToSend)
     window.location.reload()
 
@@ -256,6 +262,12 @@ App = {
     var _strNew = balance + " ETH"
     //window.alert("before the create organisation function")
     await App.charity.createOrganisation(name,bankAccount,bankName,newAddress,_strNew)
+    window.location.reload()
+  },
+
+  blockchain_function: async () => {
+
+    await App.charity.blockchain_function()
     window.location.reload()
   }
 
