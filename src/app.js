@@ -22,10 +22,6 @@ App = {
 			window.alert("connected to metamask!!!!")
 		}
 
-		else {
-			window.alert("Please connect to metamask.")
-		}
-
 
 		//Modern DApp browsers
 
@@ -37,11 +33,6 @@ App = {
 				await ethereum.enable()
 
 				web3.eth.sendTransaction({/* ...*/})
-			}
-			catch(error) {
-
-				//user denied account access...
-
 			}
 
 		}
